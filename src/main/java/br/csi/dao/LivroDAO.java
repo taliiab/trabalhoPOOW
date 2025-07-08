@@ -47,6 +47,16 @@ public class LivroDAO {
                 livro.setEditora(rs.getString("editora"));
                 livro.setAno(rs.getInt("ano"));
 
+                String verificaEmprestimo = "SELECT COUNT(*) FROM emprestimo WHERE id_livro = ?";
+                PreparedStatement stmt2 = conn.prepareStatement(verificaEmprestimo);
+                stmt2.setInt(1, livro.getId());
+
+                ResultSet rs2 = stmt2.executeQuery();
+                rs2.next();
+
+                int totalEmprestimos = rs2.getInt(1);
+                livro.setDisponivel(totalEmprestimos == 0);
+
                 livros.add(livro);
             }
 

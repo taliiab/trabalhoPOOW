@@ -1,3 +1,9 @@
+<%@ page session="true" %>
+<%
+  br.csi.model.Usuario usuarioLogado = (br.csi.model.Usuario) session.getAttribute("usuarioLogado");
+  String papel = (String) session.getAttribute("papel");
+%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -117,22 +123,6 @@
 
 <h2>${emprestimo != null ? "Editar Empréstimo" : "Realizar Empréstimo"}</h2>
 
-<form action="emprestimo" method="post" class="formcad">
-  <input type="hidden" name="opcao" value="${emprestimo != null ? 'atualizar' : 'cadastrar'}">
-  <c:if test="${emprestimo != null}">
-    <input type="hidden" name="id" value="${emprestimo.id}">
-  </c:if>
-
-  <label>ID Usuário:</label><br>
-  <input type="number" name="id_usuario" required value="${emprestimo != null ? emprestimo.idUsuario : ''}"><br><br>
-
-  <label>ID Livro:</label><br>
-  <input type="number" name="id_livro" required value="${emprestimo != null ? emprestimo.idLivro : ''}"><br><br>
-
-  <input type="submit" value="${emprestimo != null ? 'Atualizar' : 'Emprestar'}">
-</form>
-
-<hr>
 <div class="tabelas-container">
     <div class="tabela-box">
 <h3>Lista de Usuários</h3>
@@ -142,56 +132,31 @@
     <th>Nome</th>
     <th>Email</th>
     <th>Empréstimo</th>
-
   </tr>
   <c:forEach var="u" items="${usuarios}">
+    <c:if test="${usuarioLogado != null && (usuarioLogado.id == u.id || papel == 'admin')}">
     <tr>
       <td>${u.id}</td>
       <td>${u.nome}</td>
       <td>${u.email}</td>
       <td>
-        <form method="post" style="display:inline;">
-          <input type="hidden" name="opcao" value="emprestar">
-          <input type="submit" value="Realizar Empréstimo">
-        </form>
-    </td>
+          <form method="post" action="elivro" style="display:inline;">
+            <input type="hidden" name="usuarioId" value="${u.id}">
+            <input type="submit" value="Realizar Empréstimo">
+          </form>
+        </c:if>
+      </td>
     </tr>
   </c:forEach>
 </table>
     </div>
-
-  <div class="tabela-box">
-    <h3>Lista de Livros</h3>
-  <table>
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Título</th>
-      <th>Autor</th>
-      <th>Editora</th>
-      <th>Ano</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="l" items="${livros}">
-      <tr>
-        <td>${l.id}</td>
-        <td>${l.titulo}</td>
-        <td>${l.autor}</td>
-        <td>${l.editora}</td>
-        <td>${l.ano}</td>
-      </tr>
-    </c:forEach>
-    </tbody>
-  </table>
-  </div>
 
 <br>
 
 </div>
 
 <hr>
-
+<c:if test="${usuarioLogado != null && (usuarioLogado.id == u.id || papel == 'admin')}">
 <h2>Lista de Empréstimos</h2>
 <table border="1">
   <tr>
@@ -211,16 +176,12 @@
           <input type="hidden" name="id" value="${e.id}">
           <input type="submit" value="Devolver">
         </form>
-
-        <form action="emprestimo" method="post" style="display:inline;">
-          <input type="hidden" name="opcao" value="buscar">
-          <input type="hidden" name="id" value="${e.id}">
-          <input type="submit" value="Editar">
-        </form>
       </td>
     </tr>
   </c:forEach>
 </table>
+</c:if>
+
 
 <br>
 <form action="paginicial" method="get">

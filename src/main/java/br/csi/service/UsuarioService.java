@@ -22,5 +22,20 @@ public class UsuarioService {
         return dao.listar();
     }
 
+    public Usuario buscarDados(Usuario usuario) { return dao.buscarDados(usuario); }
+
+
+    public String excluirUsuario(int id) {
+        return dao.excluir(id);
+    }
+
+    public Usuario buscarPorId(int id) {
+        return dao.buscarPorId(id);
+    }
+
+    public String editarUsuario(Usuario usuario) {
+        return dao.editar(usuario);
+    }
+
 }
 

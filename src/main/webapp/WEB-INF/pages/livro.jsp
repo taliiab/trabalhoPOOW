@@ -89,10 +89,9 @@
 </style>
 <body>
 
-<h2>Cadastro de Livros</h2>
+<h2>Livros</h2>
 
-
-
+<c:if test="${usuarioLogado != null && (usuarioLogado.id == u.id || papel == 'admin')}">
 <form action="livro" method="post" class="formliv">
     <input type="hidden" name="opcao" value="${livro != null ? 'atualizar' : 'cadastrar'}" />
     <input type="hidden" name="id" value="${livro != null ? livro.id : ''}" />
@@ -106,12 +105,17 @@
 </form>
 
 <hr/>
+</c:if>
 
 
 <table border="1">
     <thead>
     <tr>
-        <th>ID</th><th>Título</th><th>Autor</th><th>Editora</th><th>Ano</th><th>Ações</th>
+        <th>ID</th><th>Título</th><th>Autor</th><th>Editora</th><th>Ano</th>
+        <c:if test="${usuarioLogado != null && (usuarioLogado.id == u.id || papel == 'admin')}">
+        <th>Ações</th>
+        </c:if>
+        <th>Disponível</th>
     </tr>
     </thead>
     <tbody>
@@ -122,8 +126,8 @@
             <td>${l.autor}</td>
             <td>${l.editora}</td>
             <td>${l.ano}</td>
+            <c:if test="${usuarioLogado != null && (usuarioLogado.id == u.id || papel == 'admin')}">
             <td>
-
                 <form action="livro" method="post" style="display:inline;">
                     <input type="hidden" name="opcao" value="buscar" />
                     <input type="hidden" name="id" value="${l.id}" />
@@ -135,6 +139,15 @@
                     <input type="hidden" name="id" value="${l.id}" />
                     <button type="submit">Excluir</button>
                 </form>
+            </td>
+            </c:if>
+            <td>
+                <c:if test="${l.disponivel}">
+                    <span style="color: green;">✔</span>
+                </c:if>
+                <c:if test="${!l.disponivel}">
+                    <span style="color: red;">✘</span>
+                </c:if>
             </td>
         </tr>
     </c:forEach>

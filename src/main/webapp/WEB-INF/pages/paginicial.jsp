@@ -54,17 +54,17 @@
 <h3>Escolha uma opção:</h3>
 
 <form action="livro" method="get">
-    <input type="submit" value="Gerenciar Livros">
+    <input type="submit" value="Livros">
 </form>
 
 <br>
 
 <form action="emprestimo" method="get">
-    <input type="submit" value="Gerenciar Empréstimos">
+    <input type="submit" value="Empréstimos">
 </form>
 
 <br>
-<form action="cadastrar">
+<form action="usuario" method="get">
     <input type="submit" value="Gerenciamento de Cadastro">
 </form>
 
