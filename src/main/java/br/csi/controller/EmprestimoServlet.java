@@ -19,7 +19,7 @@ import java.util.List;
 @WebServlet("/emprestimo")
 public class EmprestimoServlet extends HttpServlet {
 
-    private static final EmprestimoService emprestimoService = new EmprestimoService();
+    /*private static final EmprestimoService emprestimoService = new EmprestimoService();
     private static final UsuarioService usuarioService = new UsuarioService();
     private static final LivroService livroService = new LivroService();
 
@@ -121,5 +121,5 @@ public class EmprestimoServlet extends HttpServlet {
 
         RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/pages/emprestimo.jsp");
         rd.forward(req, resp);
-    }
+    } */
 }

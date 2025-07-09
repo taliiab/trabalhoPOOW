@@ -15,7 +15,7 @@ import java.util.List;
 @WebServlet("/livro")
 public class LivroServlet extends HttpServlet {
 
-    private static final LivroService service = new LivroService();
+  /*  private static final LivroService service = new LivroService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -99,5 +99,5 @@ public class LivroServlet extends HttpServlet {
             throws ServletException, IOException {
 
         forwardList(req, resp);
-    }
+    } */
 }

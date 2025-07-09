@@ -70,7 +70,7 @@
 
 <br><br>
 
-<form action="index.jsp">
+<form action="/">
     <input type="submit" value="Sair">
 </form>
 

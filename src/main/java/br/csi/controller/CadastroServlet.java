@@ -11,10 +11,10 @@ import java.io.IOException;
 
 @WebServlet("/cadastrar")
 public class CadastroServlet extends HttpServlet {
-    @Override
+  /*  @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/cadastro.jsp");
         rd.forward(request, response);
-    }
+    } */
 }

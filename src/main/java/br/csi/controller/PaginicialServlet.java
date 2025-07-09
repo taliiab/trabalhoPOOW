@@ -12,11 +12,11 @@ import java.io.IOException;
 @WebServlet("/paginicial")
 public class PaginicialServlet extends HttpServlet {
 
-    @Override
+   /* @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/pages/paginicial.jsp");
         rd.forward(req, resp);
-    }
+    } */
 }

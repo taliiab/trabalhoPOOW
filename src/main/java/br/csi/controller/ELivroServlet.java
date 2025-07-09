@@ -17,7 +17,7 @@ import java.util.List;
 @WebServlet("/elivro")
 public class ELivroServlet extends HttpServlet {
 
-    @Override
+     /*@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -47,9 +47,5 @@ public class ELivroServlet extends HttpServlet {
 
         RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/pages/elivro.jsp");
         rd.forward(req, resp);
-    }
-
-
-
-
+    } */
 }

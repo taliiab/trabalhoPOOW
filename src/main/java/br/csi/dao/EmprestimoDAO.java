@@ -1,11 +1,13 @@
 package br.csi.dao;
 
 import br.csi.model.Emprestimo;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class EmprestimoDAO {
 
     public String cadastrar(Emprestimo emprestimo) {

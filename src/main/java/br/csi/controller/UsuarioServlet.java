@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet("/usuario")
 public class UsuarioServlet extends HttpServlet {
 
-    private static final UsuarioService service = new UsuarioService();
+    /*private static final UsuarioService service = new UsuarioService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -100,6 +100,6 @@ public class UsuarioServlet extends HttpServlet {
 
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/pages/cadastro.jsp");
         rd.forward(req, resp);
-    }
+    } */
 
 }
