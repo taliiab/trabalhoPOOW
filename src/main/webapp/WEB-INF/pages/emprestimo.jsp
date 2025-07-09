@@ -3,7 +3,6 @@
   br.csi.model.Usuario usuarioLogado = (br.csi.model.Usuario) session.getAttribute("usuarioLogado");
   String papel = (String) session.getAttribute("papel");
 %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -11,182 +10,177 @@
 <head>
   <meta charset="UTF-8">
   <title>Gerenciamento de Empréstimos</title>
-</head>
-<style>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f2f5;
-        padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      padding: 30px;
+      margin: 0;
     }
 
     h2, h3 {
-        color: #333;
-        text-align: center;
+      text-align: center;
+      color: #1e3a8a;
+      margin-bottom: 20px;
     }
 
-    label {
-        display: block;
-        margin-bottom: 5px;
-        color: #555;
+    form {
+      margin-bottom: 20px;
+      text-align: center;
     }
 
-    input[type="text"],
-    input[type="number"],
-    input[type="email"],
-    input[type="password"] {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+    .tabelas-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .tabela-box {
+      flex: 1;
+      min-width: 380px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #1d4ed8;
+      color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f1f5f9;
+    }
+
+    tr:hover {
+      background-color: #e2e8f0;
     }
 
     input[type="submit"],
     input[type="button"],
     button {
-        background-color: #007bff;
-        color: white;
-        padding: 10px 16px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
+      background-color: #3b82f6;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
     }
 
     input[type="submit"]:hover,
     button:hover {
-        background-color: #0056b3;
+      background-color: #2563eb;
     }
 
-    form {
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    .formcad {
-        background-color: #fff;
-        padding: 20px 30px;
-        margin: auto auto;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 300px;
-    }
-
-
-    .tabelas-container {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-bottom: 30px;
-    }
-
-    .tabela-box {
-        flex: 1;
-        min-width: 400px;
-        background-color: white;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background-color: white;
-    }
-
-    th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: center;
-    }
-
-    th {
-        background-color: #007bff;
-        color: white;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-
-    tr:hover {
-        background-color: #f1f1f1;
+    .voltar-btn {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
     }
 
     p {
-        text-align: center;
-        font-weight: bold;
+      text-align: center;
+      font-weight: bold;
+      color: #1e3a8a;
+      margin-top: 20px;
     }
-</style>
+
+    hr {
+      border: none;
+      border-top: 1px solid #ccc;
+      margin: 40px 0;
+    }
+  </style>
+</head>
 <body>
 
 <h2>${emprestimo != null ? "Editar Empréstimo" : "Realizar Empréstimo"}</h2>
 
 <div class="tabelas-container">
-    <div class="tabela-box">
-<h3>Lista de Usuários</h3>
-<table border="1">
-  <tr>
-    <th>ID</th>
-    <th>Nome</th>
-    <th>Email</th>
-    <th>Empréstimo</th>
-  </tr>
-  <c:forEach var="u" items="${usuarios}">
-    <c:if test="${usuarioLogado != null && (usuarioLogado.id == u.id || papel == 'admin')}">
-    <tr>
-      <td>${u.id}</td>
-      <td>${u.nome}</td>
-      <td>${u.email}</td>
-      <td>
-          <form method="post" action="elivro" style="display:inline;">
-            <input type="hidden" name="usuarioId" value="${u.id}">
-            <input type="submit" value="Realizar Empréstimo">
-          </form>
+  <div class="tabela-box">
+    <h3>Lista de Usuários</h3>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Empréstimo</th>
+      </tr>
+      <c:forEach var="u" items="${usuarios}">
+        <c:if test="${usuarioLogado != null && (usuarioLogado.id == u.id || papel == 'admin')}">
+          <tr>
+            <td>${u.id}</td>
+            <td>${u.nome}</td>
+            <td>${u.email}</td>
+            <td>
+              <form method="post" action="elivro" style="display:inline;">
+                <input type="hidden" name="usuarioId" value="${u.id}">
+                <input type="submit" value="Realizar Empréstimo">
+              </form>
+            </td>
+          </tr>
         </c:if>
-      </td>
-    </tr>
-  </c:forEach>
-</table>
-    </div>
-
-<br>
-
+      </c:forEach>
+    </table>
+  </div>
 </div>
 
 <hr>
+
 <c:if test="${usuarioLogado != null && (usuarioLogado.id == u.id || papel == 'admin')}">
-<h2>Lista de Empréstimos</h2>
-<table border="1">
-  <tr>
-    <th>ID Empréstimo</th>
-    <th>Usuário</th>
-    <th>Livro</th>
-    <th>Ações</th>
-  </tr>
-  <c:forEach var="e" items="${emprestimos}">
-    <tr>
-      <td>${e.id}</td>
-        <td>${e.nomeUsuario}</td>
-        <td>${e.tituloLivro}</td>
-        <td>
-        <form action="emprestimo" method="post" style="display:inline;">
-          <input type="hidden" name="opcao" value="excluir">
-          <input type="hidden" name="id" value="${e.id}">
-          <input type="submit" value="Devolver">
-        </form>
-      </td>
-    </tr>
-  </c:forEach>
-</table>
+  <h2>Lista de Empréstimos</h2>
+  <div class="tabela-box" style="max-width: 1000px; margin: 0 auto;">
+    <table>
+      <tr>
+        <th>ID Empréstimo</th>
+        <th>Usuário</th>
+        <th>Livro</th>
+        <th>Ações</th>
+      </tr>
+      <c:forEach var="e" items="${emprestimos}">
+        <tr>
+          <td>${e.id}</td>
+          <td>${e.nomeUsuario}</td>
+          <td>${e.tituloLivro}</td>
+          <td>
+            <form action="emprestimo" method="post" style="display:inline;">
+              <input type="hidden" name="opcao" value="excluir">
+              <input type="hidden" name="id" value="${e.id}">
+              <input type="submit" value="Devolver">
+            </form>
+          </td>
+        </tr>
+      </c:forEach>
+    </table>
+  </div>
 </c:if>
 
-
-<br>
-<form action="paginicial" method="get">
-  <input type="submit" value="Voltar para página inicial">
-</form>
+<div class="voltar-btn">
+  <form action="paginicial" method="get">
+    <input type="submit" value="Voltar para página inicial">
+  </form>
+</div>
 
 <% if (request.getAttribute("msg") != null) { %>
 <p><strong><%= request.getAttribute("msg") %></strong></p>
