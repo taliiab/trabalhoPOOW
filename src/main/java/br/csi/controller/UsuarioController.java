@@ -5,12 +5,10 @@ import br.csi.service.UsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -32,14 +30,12 @@ public class UsuarioController {
         String retorno;
         Usuario usuario = new Usuario();
 
-
         usuario.setNome(nome);
         usuario.setEmail(email);
         usuario.setSenha(senha);
         if (idParam != null && !idParam.isEmpty()) {
             usuario.setId(Integer.parseInt(idParam));
         }
-
 
         if ("cadastrar".equalsIgnoreCase(opcao)) {
             retorno = service.cadastrar(usuario);
@@ -51,7 +47,6 @@ public class UsuarioController {
             boolean usuarioFixo = "admin@admin.com".equals(email) && "admin".equals(senha);
 
             if (autenticar || usuarioFixo) {
-
                 if (usuarioFixo) {
                     usuario = new Usuario();
                     usuario.setNome("admin");
@@ -62,7 +57,6 @@ public class UsuarioController {
                     usuario = service.buscarDados(usuario);
                     session.setAttribute("papel", "usuario");
                 }
-
                 session.setAttribute("usuarioLogado", usuario);
                 return "paginicial";
             } else {
@@ -97,10 +91,8 @@ public class UsuarioController {
 
     @GetMapping
     public String doGet(HttpServletRequest req) {
-
         List<Usuario> usuarios = service.listar();
         req.setAttribute("usuarios", usuarios);
-
         return "cadastro";
     }
 }
