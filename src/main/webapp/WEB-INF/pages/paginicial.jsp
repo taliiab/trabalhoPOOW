@@ -70,7 +70,7 @@
 
 <br><br>
 
-<form action="/">
+<form action="/logout">
     <input type="submit" value="Sair">
 </form>
 
